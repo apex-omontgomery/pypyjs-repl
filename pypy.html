@@ -1,0 +1,114 @@
+<html>
+<style>
+    .resizedTextbox {
+        width: 500px;
+        height: 200px
+    }
+
+    pre {
+        border-style: solid;
+        border-width: 1px;
+    }
+</style>
+
+<body>
+    <h1>PyPy.js TEST</h1>
+    <textarea id="myInput" class="resizedTextbox"></textarea>
+    <button id="run" onclick="runScript()" disabled>Run Python</button>
+    <button id="clear" onclick="clearOutput()">Clear Output</button>
+    <pre id="output"></pre>
+
+
+    <script src="Promise.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="FunctionPromise.js" type="text/javascript" charset="utf-8"></script>
+    <script src="pypyjs.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        // override tab in textarea
+        const myInput = document.getElementById("myInput");
+
+        if (myInput.addEventListener) {
+            myInput.addEventListener('keydown', this.keyHandler, false);
+        } else if (myInput.attachEvent) {
+            myInput.attachEvent('onkeydown', this.keyHandler); /* damn IE hack */
+        }
+
+        function keyHandler(e) {
+            var TABKEY = 9;
+            if (e.keyCode == TABKEY) {
+                this.value += "    ";
+                if (e.preventDefault) {
+                    e.preventDefault();
+                }
+                return false;
+            }
+        }
+
+        const default_code = () => {
+            return `def operation_code_print():
+    print('hi operation code')
+  
+    
+if __name__ == '__main__':
+    operation_code_print()`
+        }
+
+
+        const button = document.getElementById("run")
+        const call_python = (code) => {
+            pypyjs.exec(code).then(() => {
+
+            }).catch(err => {
+                console.log("ERROR: " + err.name + ": " + err.message + "!)");
+                pypyjs.stderr(err.trace); // the human-readable traceback, as a string 
+            })
+        }
+
+
+        const setup = () => {
+            out = $("#output");
+            pypyjs.stdout = pypyjs.stderr = function (data) {
+                out.append(data);
+                out.scrollTop(out.prop("scrollHeight")); // scoll down
+            }
+            pypyjs.stdout.reset = pypyjs.stderr.reset = function (data) {
+                out.empty();
+            }
+            pypyjs.stdout("Loading big ass PyPy.js");
+        }
+
+
+
+        console.log('text')
+        myInput.value = default_code()
+        console.log(default_code())
+        setup(default_code());
+        const pseudo_status = setInterval(() => { pypyjs.stdout("."); }, 500);
+
+        pypyjs.ready().then(() => {
+            clearInterval(pseudo_status);
+            pypyjs.stdout.reset();
+            runScript();
+            button.disabled = false;
+        });
+
+
+        const runScript = () => {
+            pypyjs.stdout("\n~~~~~~~Running~~~~~~~~~\n")
+            pypyjs.stdout(myInput.value)
+            pypyjs.stdout("\n~~~~~~~Finished~~~~~~~~\n")
+            pypyjs.stdout("Script output:\n")
+            call_python(myInput.value)
+        }
+
+        const clearOutput = () => {
+            pypyjs.stdout.reset()
+            pypyjs.stdout('cleared output\n')
+        }
+
+
+    </script>
+</body>
+
+</html>

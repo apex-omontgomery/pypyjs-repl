@@ -1,0 +1,59 @@
+{
+  "_from": "pypyjs",
+  "_id": "pypyjs@0.4.1",
+  "_inBundle": false,
+  "_integrity": "sha1-1le77ayJDlcINGN1ysmJDhfMpqQ=",
+  "_location": "/pypyjs",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "pypyjs",
+    "name": "pypyjs",
+    "escapedName": "pypyjs",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/pypyjs/-/pypyjs-0.4.1.tgz",
+  "_shasum": "d657bbedac890e5708346375cac9890e17cca6a4",
+  "_spec": "pypyjs",
+  "_where": "C:\\Users\\William.Montgomery\\Desktop\\pypyjs_test",
+  "author": {
+    "name": "Ryan Kelly",
+    "email": "ryan@rfk.id.au"
+  },
+  "bugs": {
+    "url": "https://github.com/pypyjs/pypyjs/issues/"
+  },
+  "bundleDependencies": false,
+  "dependencies": {},
+  "deprecated": false,
+  "description": "The PyPy Python VM, in JavaScript",
+  "devDependencies": {},
+  "files": [
+    "lib/",
+    "tools/",
+    "README.rst"
+  ],
+  "homepage": "http://pypyjs.org/",
+  "keywords": [
+    "python",
+    "pypy",
+    "asmjs",
+    "emscripten",
+    "wtf"
+  ],
+  "license": "MIT",
+  "main": "./lib/pypyjs.js",
+  "name": "pypyjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pypyjs/pypyjs.git"
+  },
+  "version": "0.4.1"
+}
